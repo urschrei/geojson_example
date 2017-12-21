@@ -1,7 +1,7 @@
 extern crate geojson;
 use geojson::{GeoJson, Geometry, Value};
 
-/// Look for a geometry and print if found
+/// Process GeoJSON geometries  
 fn match_geometry(geom: &Geometry) {
     match &geom.value {
         &Value::Polygon(_) => println!("Matched a Polygon"),
@@ -18,19 +18,19 @@ fn match_geometry(geom: &Geometry) {
 }
 
 /// Process top-level GeoJSON items
-fn process_geojson(gj: GeoJson) {
+fn process_geojson(gj: &GeoJson) {
     match gj {
-        GeoJson::FeatureCollection(ctn) => for feature in ctn.features {
+        &GeoJson::FeatureCollection(ref ctn) => for feature in &ctn.features {
             if let &Some(ref actual_feature) = &feature.geometry {
                 match_geometry(&actual_feature)
             }
         },
-        GeoJson::Feature(feature) => {
+        &GeoJson::Feature(ref feature) => {
             if let &Some(ref actual_feature) = &feature.geometry {
                 match_geometry(&actual_feature)
             }
         }
-        GeoJson::Geometry(geometry) => match_geometry(&geometry),
+        &GeoJson::Geometry(ref geometry) => match_geometry(&geometry),
     }
 }
 
@@ -67,5 +67,5 @@ fn main() {
     }
     "#;
     let geojson = geojson_str.parse::<GeoJson>().unwrap();
-    process_geojson(geojson);
+    process_geojson(&geojson);
 }
