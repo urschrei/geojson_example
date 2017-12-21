@@ -8,6 +8,8 @@ fn match_geometry(geom: &Geometry) {
         &Value::MultiPolygon(_) => println!("Matched a MultiPolygon"),
         &Value::GeometryCollection(ref gc) => {
             println!("Matched a GeometryCollection");
+            // GeometryCollections contain other Geometry types, and can nest
+            // we deal with this by recursively processing each geometry
             for geometry in gc {
                 match_geometry(geometry)
             }
@@ -21,13 +23,13 @@ fn match_geometry(geom: &Geometry) {
 fn process_geojson(gj: &GeoJson) {
     match gj {
         &GeoJson::FeatureCollection(ref ctn) => for feature in &ctn.features {
-            if let &Some(ref actual_feature) = &feature.geometry {
-                match_geometry(&actual_feature)
+            if let &Some(ref geom) = &feature.geometry {
+                match_geometry(&geom)
             }
         },
         &GeoJson::Feature(ref feature) => {
-            if let &Some(ref actual_feature) = &feature.geometry {
-                match_geometry(&actual_feature)
+            if let &Some(ref geom) = &feature.geometry {
+                match_geometry(&geom)
             }
         }
         &GeoJson::Geometry(ref geometry) => match_geometry(&geometry),
