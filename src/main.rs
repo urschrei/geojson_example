@@ -1,6 +1,9 @@
 extern crate geojson;
 use geojson::{GeoJson, Geometry, Value};
 
+extern crate rayon;
+use rayon::prelude::*;
+
 /// Process GeoJSON geometries
 fn match_geometry(geom: &Geometry) {
     match geom.value {
@@ -10,7 +13,7 @@ fn match_geometry(geom: &Geometry) {
             println!("Matched a GeometryCollection");
             // GeometryCollections contain other Geometry types, and can nest
             // we deal with this by recursively processing each geometry
-            gc.iter().for_each(|geometry| match_geometry(geometry))
+            gc.par_iter().for_each(|geometry| match_geometry(geometry))
         }
         // Point, LineString, and their Multi– counterparts
         _ => println!("Matched some other geometry"),
@@ -21,8 +24,8 @@ fn match_geometry(geom: &Geometry) {
 fn process_geojson(gj: &GeoJson) {
     match *gj {
         GeoJson::FeatureCollection(ref ctn) => ctn.features
-            // could be a for loop, but they're not as easily parallelisable
-            .iter()
+            // iterate in parallel when appropriate
+            .par_iter()
             // only pass on actual geometries, doing so by reference
             .filter_map(|feature| feature.geometry.as_ref())
             .for_each(|geometry| match_geometry(geometry)),
