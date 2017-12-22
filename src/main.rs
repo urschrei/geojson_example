@@ -32,8 +32,8 @@ fn process_geojson(gj: &GeoJson) {
             .filter_map(|feature| feature.geometry.as_ref())
             .for_each(|geometry| match_geometry(geometry)),
         GeoJson::Feature(ref feature) => {
-            if let Some(ref geom) = feature.geometry {
-                match_geometry(geom)
+            if let Some(ref geometry) = feature.geometry {
+                match_geometry(geometry)
             }
         }
         GeoJson::Geometry(ref geometry) => match_geometry(geometry),
