@@ -9,11 +9,11 @@ fn match_geometry(geom: &Geometry) {
     match geom.value {
         Value::Polygon(_) => println!("Matched a Polygon"),
         Value::MultiPolygon(_) => println!("Matched a MultiPolygon"),
-        Value::GeometryCollection(ref gc) => {
+        Value::GeometryCollection(ref collection) => {
             println!("Matched a GeometryCollection");
             // GeometryCollections contain other Geometry types, and can nest
             // we deal with this by recursively processing each geometry
-            gc.par_iter().for_each(|geometry| match_geometry(geometry))
+            collection.par_iter().for_each(|geometry| match_geometry(geometry))
         }
         // Point, LineString, and their Multi– counterparts
         _ => println!("Matched some other geometry"),
@@ -23,7 +23,7 @@ fn match_geometry(geom: &Geometry) {
 /// Process top-level GeoJSON items
 fn process_geojson(gj: &GeoJson) {
     match *gj {
-        GeoJson::FeatureCollection(ref ctn) => ctn.features
+        GeoJson::FeatureCollection(ref collection) => collection.features
             // Iterate in parallel when appropriate
             .par_iter()
             // Only pass on non-empty geometries, doing so by reference
