@@ -24,9 +24,9 @@ fn match_geometry(geom: &Geometry) {
 fn process_geojson(gj: &GeoJson) {
     match *gj {
         GeoJson::FeatureCollection(ref ctn) => ctn.features
-            // iterate in parallel when appropriate
+            // Iterate in parallel when appropriate
             .par_iter()
-            // only pass on actual geometries, doing so by reference
+            // Only pass on non-empty geometries, doing so by reference
             .filter_map(|feature| feature.geometry.as_ref())
             .for_each(|geometry| match_geometry(geometry)),
         GeoJson::Feature(ref feature) => {
