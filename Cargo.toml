@@ -2,6 +2,10 @@
 name = "geojson_example"
 version = "0.1.0"
 authors = ["Stephan Hügel <urschrei@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/urschrei/geojson_example"
+keywords = ["geo", "geojson", "gis"]
 
 [dependencies]
 geo = "0.6.2"
