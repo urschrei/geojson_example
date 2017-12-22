@@ -1,7 +1,7 @@
 extern crate geojson;
 use geojson::{GeoJson, Geometry, Value};
 
-/// Process GeoJSON geometries  
+/// Process GeoJSON geometries
 fn match_geometry(geom: &Geometry) {
     match geom.value {
         Value::Polygon(_) => println!("Matched a Polygon"),
@@ -10,9 +10,7 @@ fn match_geometry(geom: &Geometry) {
             println!("Matched a GeometryCollection");
             // GeometryCollections contain other Geometry types, and can nest
             // we deal with this by recursively processing each geometry
-            for geometry in gc {
-                match_geometry(geometry)
-            }
+            gc.iter().for_each(|geometry| match_geometry(geometry))
         }
         // Point, LineString, and their Multi– counterparts
         _ => println!("Matched some other geometry"),
@@ -22,11 +20,12 @@ fn match_geometry(geom: &Geometry) {
 /// Process top-level GeoJSON items
 fn process_geojson(gj: &GeoJson) {
     match *gj {
-        GeoJson::FeatureCollection(ref ctn) => for feature in &ctn.features {
-            if let Some(ref geom) = feature.geometry {
-                match_geometry(geom)
-            }
-        },
+        GeoJson::FeatureCollection(ref ctn) => ctn.features
+            // could be a for loop, but they're not as easily parallelisable
+            .iter()
+            // only pass on actual geometries, doing so by reference
+            .filter_map(|feature| feature.geometry.as_ref())
+            .for_each(|geometry| match_geometry(geometry)),
         GeoJson::Feature(ref feature) => {
             if let Some(ref geom) = feature.geometry {
                 match_geometry(geom)
