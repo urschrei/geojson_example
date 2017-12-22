@@ -13,7 +13,9 @@ fn match_geometry(geom: &Geometry) {
             println!("Matched a GeometryCollection");
             // GeometryCollections contain other Geometry types, and can nest
             // we deal with this by recursively processing each geometry
-            collection.par_iter().for_each(|geometry| match_geometry(geometry))
+            collection
+                .par_iter()
+                .for_each(|geometry| match_geometry(geometry))
         }
         // Point, LineString, and their Multi– counterparts
         _ => println!("Matched some other geometry"),
