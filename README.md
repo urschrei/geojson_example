@@ -3,9 +3,9 @@ This is a minimal example demonstrating GeoJSON parsing using Rust. In order to 
 
 If you aren't familiar with it, it may be helpful to familiarise yourself with the [GeoJSON spec](https://tools.ietf.org/html/rfc7946), as this should make it obvious why e.g. `Feature` geometries in [`rust-geojson`](https://docs.rs/geojson/0.9.1/geojson/struct.Feature.html) are `Option`.
 
-The example GeoJSON used is deliberately baroque: `GeometryCollection` isn't in wide use, and the use of nested `GeometryCollection`s is discouraged by the spec, and is all but unknown "in the wild". Nevertheless, if we need to e.g. extract all `Polygon` instances in an arbitrary GeoJSON file, we have to be able to process them – this turns out to be relatively painless using a recursive function.
+The example GeoJSON used is deliberately baroque: `GeometryCollection` isn't in wide use, and the use of nested `GeometryCollection`s is discouraged by the spec, being all but unknown "in the wild". Nevertheless, if we need to e.g. extract all `Polygon` objects in an arbitrary GeoJSON file, we have to be able to process them – this turns out to be relatively painless using a recursive function.
 
-The example code could be more minimal, but this is an ideal use case for [Rayon](https://docs.rs/rayon/) in order to parallelise the processing, so iterators have been substituted for `for { … }` loops to faciliate its use, leading to the requirement for Rust 1.21 or later.
+The example code could be more minimal, but this is an ideal use case for [Rayon](https://docs.rs/rayon/) in order to parallelise the processing, so iterators have been substituted for `for { … }` loops to faciliate its use, leading to the requirement for Rust 1.21 or later. If you'd prefer to use `for` loops and avoid iterators, the [`plain`](https://github.com/urschrei/geojson_example/tree/plain) branch is available.
 
 Note that neither of the functions take ownership of the `GeoJSON` struct or clone any part of it — you're free to use `geojson` again as soon as `process_geojson` returns — and the code doesn't allocate, if you care about that sort of thing.
 
