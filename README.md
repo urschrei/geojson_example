@@ -13,3 +13,5 @@ Note that neither of the functions take ownership of the `GeoJSON` struct or clo
 If you want to manipulate GeoJSON objects, you'll most likely want to convert them to [`Geo`](https://docs.rs/geo) types, which provide a wide range of algorithms and methods on geometric objects. To faciliate this,`rust-geojson` provides the `conversion::try_into` trait for this on its `Value` structs.  
 
 This also requires a more involved parsing process, since the conversion consumes the callee – the [`polylabel_cmd`](https://github.com/urschrei/polylabel_cmd) crate contains parsing and conversion code which has the same structure as this example.
+
+A final note: if you need to keep track of all geometries you'll need to adapt the example, because the `filter_map()` call discards empty geometries, thus the number of output geometries is no longer guaranteed to equal the number of input geometries.
