@@ -36,7 +36,7 @@ fn match_geometry(geom: Geometry) {
 fn process_geojson(gj: GeoJson) {
     match gj {
         GeoJson::FeatureCollection(collection) => collection.features
-            // Iterate in parallel  appropriate
+            // Iterate in parallel where appropriate
             .into_par_iter()
             // Only pass on non-empty geometries, doing so by reference
             .filter_map(|feature| feature.geometry)
