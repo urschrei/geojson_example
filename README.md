@@ -16,3 +16,7 @@ Two different approaches to parsing GeoJSON are shown:
 The [`polylabel_cmd`](https://github.com/urschrei/polylabel_cmd) crate contains more advanced parsing and conversion code which has the same structure as this example.
 
 A final note: if you need to keep track of all geometries you'll need to adapt the example, because the `filter_map()` call discards empty geometries, thus the number of output geometries is no longer guaranteed to equal the number of input geometries.
+
+## License
+[BSD Zero Clause License](LICENSE)
+
