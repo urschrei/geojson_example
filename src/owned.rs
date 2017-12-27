@@ -38,7 +38,7 @@ fn process_geojson(gj: GeoJson) {
         GeoJson::FeatureCollection(collection) => collection.features
             // Iterate in parallel where appropriate
             .into_par_iter()
-            // Only pass on non-empty geometries, doing so by reference
+            // Only pass on non-empty geometries
             .filter_map(|feature| feature.geometry)
             .for_each(match_geometry),
         GeoJson::Feature(feature) => {
