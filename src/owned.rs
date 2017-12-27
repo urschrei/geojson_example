@@ -6,7 +6,7 @@ extern crate rayon;
 use rayon::prelude::*;
 
 extern crate geo;
-use geo::{Polygon};
+use geo::Polygon;
 use geo::algorithm::centroid::Centroid;
 
 /// Process GeoJSON geometries
@@ -15,17 +15,18 @@ fn match_geometry(geom: Geometry) {
         Value::Polygon(_) => {
             let poly: Polygon<f64> = geom.value.try_into().expect("Unable to convert Polygon");
             let centroid = poly.centroid().unwrap();
-            println!("Matched a Polygon with centroid ({}, {})", centroid.x(), centroid.y());
-
-        },
+            println!(
+                "Matched a Polygon with centroid ({}, {})",
+                centroid.x(),
+                centroid.y()
+            );
+        }
         Value::MultiPolygon(_) => println!("Matched a MultiPolygon"),
         Value::GeometryCollection(collection) => {
             println!("Matched a GeometryCollection");
             // GeometryCollections contain other Geometry types, and can nest
             // we deal with this by recursively processing each geometry
-            collection
-                .into_par_iter()
-                .for_each(match_geometry)
+            collection.into_par_iter().for_each(match_geometry)
         }
         // Point, LineString, and their Multi– counterparts
         _ => println!("Matched some other geometry"),
