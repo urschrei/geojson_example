@@ -15,5 +15,10 @@ rayon = "0.9.0"
 
 [[bin]]
 name = "example"
-path = "src/main.rs"
+path = "src/example.rs"
+crate-type = ["bin"]
+
+[[bin]]
+name = "owned"
+path = "src/owned.rs"
 crate-type = ["bin"]
