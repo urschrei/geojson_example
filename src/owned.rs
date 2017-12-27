@@ -15,7 +15,7 @@ fn match_geometry(geom: Geometry) {
         Value::Polygon(_) => {
             let poly: Polygon<f64> = geom.value.try_into().expect("Unable to convert Polygon");
             let centroid = poly.centroid().unwrap();
-            println!("Found a polygon. Its centroid is ({}, {})", centroid.x(), centroid.y());
+            println!("Matched a Polygon with centroid ({}, {})", centroid.x(), centroid.y());
 
         },
         Value::MultiPolygon(_) => println!("Matched a MultiPolygon"),
