@@ -9,7 +9,7 @@ The example code could be more minimal, but this is an ideal use case for [Rayon
 
 ## Approach
 Two different approaches to parsing GeoJSON are shown:
-- [`borrowed.rs`](src/example.rs) shows parsing using only borrowed data, and does not consume the GeoJSON, clone any part of it, or allocate – you're free to use `geojson` again as soon as `process_geojson` returns. Run it using cargo: `cargo run --bin borrowed`
+- [`borrowed.rs`](src/borrowed.rs) shows parsing using only borrowed data, and does not consume the GeoJSON, clone any part of it, or allocate – you're free to use `geojson` again as soon as `process_geojson` returns. Run it using cargo: `cargo run --bin borrowed`
 - [`owned.rs`](src/owned.rs) shows parsing and conversion to [`Geo`](https://docs.rs/geo) types, which necessarily consumes the GeoJSON, as `Geo`'s primitives mostly used owned structures. To faciliate conversions of this kind,`rust-geojson` provides the `conversion::try_into` trait for this on its `Value` structs. Run it using cargo: `cargo run --bin owned`.
 
 ## Further Work
