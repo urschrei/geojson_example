@@ -1,6 +1,6 @@
 [package]
 name = "geojson_example"
-version = "0.2.0"
+version = "0.3.0"
 authors = ["Stephan Hügel <urschrei@gmail.com>"]
 license = "BSD Zero Clause License"
 readme = "README.md"
@@ -21,4 +21,9 @@ crate-type = ["bin"]
 [[bin]]
 name = "owned"
 path = "src/owned.rs"
+crate-type = ["bin"]
+
+[[bin]]
+name = "borrowed_modify"
+path = "src/borrowed_modify.rs"
 crate-type = ["bin"]
