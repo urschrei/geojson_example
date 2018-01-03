@@ -100,7 +100,7 @@ dependencies = [
 
 [[package]]
 name = "geojson_example"
-version = "0.1.0"
+version = "0.3.0"
 dependencies = [
  "geo 0.6.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "geojson 0.9.1 (registry+https://github.com/rust-lang/crates.io-index)",
