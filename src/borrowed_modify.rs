@@ -1,12 +1,13 @@
 use std::mem::replace;
 
 extern crate geo;
-use geo::{LineString, Point, Polygon};
+extern crate geo_types;
 use geo::algorithm::convexhull::ConvexHull;
+use geo_types::{LineString, Point, Polygon};
 
 extern crate geojson;
-use geojson::{GeoJson, Geometry, Value};
 use geojson::conversion::TryInto;
+use geojson::{GeoJson, Geometry, Value};
 
 extern crate serde_json;
 use serde_json::to_string_pretty;
@@ -44,7 +45,7 @@ fn process_geometry(geom: &mut Geometry) {
                 .for_each(|geometry| process_geometry(geometry))
         }
         // Point, LineString, and their Multi– counterparts
-        _ => ()
+        _ => (),
     }
 }
 

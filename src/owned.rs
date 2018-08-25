@@ -1,13 +1,14 @@
 extern crate geojson;
-use geojson::{GeoJson, Geometry, Value};
 use geojson::conversion::TryInto;
+use geojson::{GeoJson, Geometry, Value};
 
 extern crate rayon;
 use rayon::prelude::*;
 
 extern crate geo;
-use geo::Polygon;
+extern crate geo_types;
 use geo::algorithm::centroid::Centroid;
+use geo_types::Polygon;
 
 /// Process GeoJSON geometries
 fn match_geometry(geom: Geometry) {
