@@ -1,18 +1,10 @@
 use std::mem::replace;
 
-extern crate geo;
-extern crate geo_types;
 use geo::algorithm::convexhull::ConvexHull;
 use geo_types::{LineString, Point, Polygon};
-
-extern crate geojson;
 use geojson::conversion::TryInto;
 use geojson::{GeoJson, Geometry, Value};
-
-extern crate serde_json;
 use serde_json::to_string_pretty;
-
-extern crate rayon;
 use rayon::prelude::*;
 
 /// Process top-level `GeoJSON` items
@@ -57,7 +49,7 @@ fn calculate_hull(geom: Option<&mut Geometry>) {
         let rings = Vec::new();
         let fake_polygon: Polygon<f64> = Polygon::new(LineString::from(shell), rings);
         // convert it into a Value, and swap it for the actual Polygon
-        let mut intermediate = replace(&mut gmt.value, Value::from(&fake_polygon));
+        let intermediate = replace(&mut gmt.value, Value::from(&fake_polygon));
         let mut geo_type: Polygon<f64> = intermediate.try_into().unwrap();
         // modify the borrowed, converted Value
         geo_type = geo_type.convex_hull();

@@ -1,7 +1,4 @@
-extern crate geojson;
 use geojson::{GeoJson, Geometry, Value};
-
-extern crate rayon;
 use rayon::prelude::*;
 
 /// Process GeoJSON geometries
