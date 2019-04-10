@@ -37,7 +37,8 @@ fn match_geometry(geom: Geometry) {
 /// Process top-level GeoJSON items
 fn process_geojson(gj: GeoJson) {
     match gj {
-        GeoJson::FeatureCollection(collection) => collection.features
+        GeoJson::FeatureCollection(collection) => collection
+            .features
             // Iterate in parallel where appropriate
             .into_par_iter()
             // Only pass on non-empty geometries

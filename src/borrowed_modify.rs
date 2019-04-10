@@ -4,13 +4,14 @@ use geo::algorithm::convexhull::ConvexHull;
 use geo_types::{LineString, Point, Polygon};
 use geojson::conversion::TryInto;
 use geojson::{GeoJson, Geometry, Value};
-use serde_json::to_string_pretty;
 use rayon::prelude::*;
+use serde_json::to_string_pretty;
 
 /// Process top-level `GeoJSON` items
 fn process_geojson(gj: &mut GeoJson) {
     match *gj {
-        GeoJson::FeatureCollection(ref mut collection) => collection.features
+        GeoJson::FeatureCollection(ref mut collection) => collection
+            .features
             .par_iter_mut()
             // Only pass on non-empty geometries
             .filter_map(|feature| feature.geometry.as_mut())
