@@ -1,12 +1,12 @@
-extern crate geojson;
+
 use geojson::conversion::TryInto;
 use geojson::{GeoJson, Geometry, Value};
 
-extern crate rayon;
+
 use rayon::prelude::*;
 
-extern crate geo;
-extern crate geo_types;
+
+
 use geo::algorithm::centroid::Centroid;
 use geo_types::Polygon;
 
