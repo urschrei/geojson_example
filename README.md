@@ -1,5 +1,5 @@
 # Parsing GeoJSON using Rust
-These are three minimal examples demonstrating GeoJSON parsing using Rust. In order to run them, you'll need at least Stable Rust 1.21. In most cases, the easiest way to do this is using [Rustup](https://rustup.rs).
+These are three minimal examples demonstrating GeoJSON parsing using Rust. In order to run them, you'll need at least Stable Rust 1.34. In most cases, the easiest way to do this is using [Rustup](https://rustup.rs).
 
 If you aren't familiar with it, it may be helpful to familiarise yourself with the [GeoJSON spec](https://tools.ietf.org/html/rfc7946), as this should make it obvious why e.g. `Feature` geometries in [`rust-geojson`](https://docs.rs/geojson/0.9.1/geojson/struct.Feature.html) are `Option`.
 
