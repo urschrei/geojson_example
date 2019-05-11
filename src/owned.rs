@@ -1,12 +1,7 @@
 
-use geojson::conversion::TryInto;
+use std::convert::TryInto;
 use geojson::{GeoJson, Geometry, Value};
-
-
 use rayon::prelude::*;
-
-
-
 use geo::algorithm::centroid::Centroid;
 use geo_types::Polygon;
 

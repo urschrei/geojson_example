@@ -2,7 +2,7 @@ use std::mem::replace;
 
 use geo::algorithm::convexhull::ConvexHull;
 use geo_types::{LineString, Point, Polygon};
-use geojson::conversion::TryInto;
+use std::convert::TryInto;
 use geojson::{GeoJson, Geometry, Value};
 use rayon::prelude::*;
 use serde_json::to_string_pretty;
