@@ -1,7 +1,6 @@
 use geo::algorithm::centroid::Centroid;
 use geo_types::Polygon;
 use geojson::{GeoJson, Geometry, Value};
-use rayon::prelude::*;
 use std::convert::TryInto;
 
 /// Process GeoJSON geometries
@@ -21,7 +20,7 @@ fn match_geometry(geom: Geometry) {
             println!("Matched a GeometryCollection");
             // GeometryCollections contain other Geometry types, and can nest
             // we deal with this by recursively processing each geometry
-            collection.into_par_iter().for_each(match_geometry)
+            collection.into_iter().for_each(match_geometry)
         }
         // Point, LineString, and their Multi– counterparts
         _ => println!("Matched some other geometry"),
@@ -34,7 +33,7 @@ fn process_geojson(gj: GeoJson) {
         GeoJson::FeatureCollection(collection) => collection
             .features
             // Iterate in parallel where appropriate
-            .into_par_iter()
+            .into_iter()
             // Only pass on non-empty geometries
             .filter_map(|feature| feature.geometry)
             .for_each(match_geometry),

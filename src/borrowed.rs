@@ -1,5 +1,4 @@
 use geojson::{GeoJson, Geometry, Value};
-use rayon::prelude::*;
 
 /// Process GeoJSON geometries
 fn match_geometry(geom: &Geometry) {
@@ -11,7 +10,7 @@ fn match_geometry(geom: &Geometry) {
             // GeometryCollections contain other Geometry types, and can nest
             // we deal with this by recursively processing each geometry
             collection
-                .par_iter()
+                .iter()
                 .for_each(|geometry| match_geometry(geometry))
         }
         // Point, LineString, and their Multi– counterparts
@@ -25,7 +24,7 @@ fn process_geojson(gj: &GeoJson) {
         GeoJson::FeatureCollection(ref collection) => collection
             .features
             // Iterate in parallel when appropriate
-            .par_iter()
+            .iter()
             // Only pass on non-empty geometries, doing so by reference
             .filter_map(|feature| feature.geometry.as_ref())
             .for_each(|geometry| match_geometry(geometry)),

@@ -3,7 +3,6 @@ use std::mem::replace;
 use geo::algorithm::convex_hull::ConvexHull;
 use geo_types::{LineString, Point, Polygon};
 use geojson::{GeoJson, Geometry, Value};
-use rayon::prelude::*;
 use serde_json::to_string_pretty;
 use std::convert::TryInto;
 
@@ -12,7 +11,7 @@ fn process_geojson(gj: &mut GeoJson) {
     match *gj {
         GeoJson::FeatureCollection(ref mut collection) => collection
             .features
-            .par_iter_mut()
+            .iter_mut()
             // Only pass on non-empty geometries
             .filter_map(|feature| feature.geometry.as_mut())
             .for_each(|geometry| process_geometry(geometry)),
@@ -34,7 +33,7 @@ fn process_geometry(geom: &mut Geometry) {
             // GeometryCollections contain other Geometry types, and can nest
             // we deal with this by recursively processing each geometry
             collection
-                .par_iter_mut()
+                .iter_mut()
                 .for_each(|geometry| process_geometry(geometry))
         }
         // Point, LineString, and their Multi– counterparts
