@@ -20,5 +20,5 @@ Three different approaches to parsing GeoJSON are shown:
 The [`polylabel_cmd`](https://github.com/urschrei/polylabel_cmd) crate contains more advanced parsing and conversion code which has the same structure as these examples.
 
 ## License
-[BSD Zero Clause License](LICENSE)
+[Blue Oak Model License 1.0.0](LICENSE.md)
 
