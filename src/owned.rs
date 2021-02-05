@@ -1,9 +1,8 @@
-
-use std::convert::TryInto;
-use geojson::{GeoJson, Geometry, Value};
-use rayon::prelude::*;
 use geo::algorithm::centroid::Centroid;
 use geo_types::Polygon;
+use geojson::{GeoJson, Geometry, Value};
+use rayon::prelude::*;
+use std::convert::TryInto;
 
 /// Process GeoJSON geometries
 fn match_geometry(geom: Geometry) {

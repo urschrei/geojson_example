@@ -2,10 +2,10 @@ use std::mem::replace;
 
 use geo::algorithm::convex_hull::ConvexHull;
 use geo_types::{LineString, Point, Polygon};
-use std::convert::TryInto;
 use geojson::{GeoJson, Geometry, Value};
 use rayon::prelude::*;
 use serde_json::to_string_pretty;
+use std::convert::TryInto;
 
 /// Process top-level `GeoJSON` items
 fn process_geojson(gj: &mut GeoJson) {
