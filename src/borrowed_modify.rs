@@ -1,6 +1,6 @@
 use std::mem::replace;
 
-use geo::algorithm::convexhull::ConvexHull;
+use geo::algorithm::convex_hull::ConvexHull;
 use geo_types::{LineString, Point, Polygon};
 use std::convert::TryInto;
 use geojson::{GeoJson, Geometry, Value};
