@@ -33,9 +33,7 @@ fn process_geometry(geom: &mut Geometry) {
         Value::GeometryCollection(ref mut collection) => {
             // GeometryCollections contain other Geometry types, and can nest
             // we deal with this by recursively processing each geometry
-            collection
-                .par_iter_mut()
-                .for_each(process_geometry)
+            collection.par_iter_mut().for_each(process_geometry)
         }
         // Point, LineString, and their Multi– counterparts
         _ => (),
