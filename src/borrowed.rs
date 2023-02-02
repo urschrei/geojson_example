@@ -12,7 +12,7 @@ fn match_geometry(geom: &Geometry) {
             // we deal with this by recursively processing each geometry
             collection
                 .par_iter()
-                .for_each(|geometry| match_geometry(geometry))
+                .for_each(match_geometry)
         }
         // Point, LineString, and their Multi– counterparts
         _ => println!("Matched some other geometry"),
@@ -28,7 +28,7 @@ fn process_geojson(gj: &GeoJson) {
             .par_iter()
             // Only pass on non-empty geometries, doing so by reference
             .filter_map(|feature| feature.geometry.as_ref())
-            .for_each(|geometry| match_geometry(geometry)),
+            .for_each(match_geometry),
         GeoJson::Feature(ref feature) => {
             if let Some(ref geometry) = feature.geometry {
                 match_geometry(geometry)

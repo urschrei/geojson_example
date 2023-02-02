@@ -15,7 +15,7 @@ fn process_geojson(gj: &mut GeoJson) {
             .par_iter_mut()
             // Only pass on non-empty geometries
             .filter_map(|feature| feature.geometry.as_mut())
-            .for_each(|geometry| process_geometry(geometry)),
+            .for_each(process_geometry),
         GeoJson::Feature(ref mut feature) => {
             if let Some(ref mut geometry) = feature.geometry {
                 process_geometry(geometry)
@@ -35,7 +35,7 @@ fn process_geometry(geom: &mut Geometry) {
             // we deal with this by recursively processing each geometry
             collection
                 .par_iter_mut()
-                .for_each(|geometry| process_geometry(geometry))
+                .for_each(process_geometry)
         }
         // Point, LineString, and their Multi– counterparts
         _ => (),
